@@ -4,6 +4,7 @@ namespace Shop.Domain.Entities
 {
     public class Customer: Entity
     {
+
         public Customer(Name name, Document document, Email email, string passwordHash)
         {
             Name = name;
