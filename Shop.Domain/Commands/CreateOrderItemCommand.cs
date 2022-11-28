@@ -22,7 +22,7 @@ namespace Shop.Domain.Commands
             AddNotifications(new Contract()
                 .Requires()
                 .HasLen(Product.ToString(), 32, "Product", "Produto inválido")
-                .IsGreaterThan(Quantity, 0, "Quantity", "Quantidade inválida")
+                .IsGreaterThan(Quantity, 0, "Quantity", "A quantidade deve ser maior que zero")
                 );
         }
     }

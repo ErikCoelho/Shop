@@ -12,7 +12,7 @@ namespace Shop.Domain.Tests.Repositories
             var doc = new Document("12345678911");
             var email = new Email("eriktest@gmail.com");
 
-            if (document == "12345678911");
+            if (document.Length == 11)
                 return new Customer(name, doc, email, "senha321");
 
             return null;

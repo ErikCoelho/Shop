@@ -6,14 +6,40 @@ namespace Shop.Domain.Tests.Commands
     public class CreateOrderCommandTests
     {
         [TestMethod]
-        [TestCategory("Handlers")]
-        public void Dado_um_comando_invalido_o_pedido_nao_deve_ser_gerado()
+        [TestCategory("Commands")]
+        public void Dado_um_comand_invalido_o_pedido_nao_deve_ser_gerado()
         {
             var command = new CreateOrderCommand();
-            command.Customer = "";
+            command.Customer = "000";
             command.ZipCode = "12345678";
             command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
             command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
+            command.Validate();
+
+            Assert.AreEqual(command.Valid, false);
+        }
+
+        [TestMethod]
+        [TestCategory("Commands")]
+        public void Dado_um_comand_valido_o_pedido_deve_ser_gerado()
+        {
+            var command = new CreateOrderCommand();
+            command.Customer = "59493843009";
+            command.ZipCode = "12345678";
+            command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
+            command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
+            command.Validate();
+
+            Assert.AreEqual(command.Valid, true);
+        }
+
+        [TestMethod]
+        [TestCategory("Commands")]
+        public void Dado_um_comand_sem_itens_o_pedido_nao_deve_ser_gerado()
+        {
+            var command = new CreateOrderCommand();
+            command.Customer = "594.938.430-09";
+            command.ZipCode = "12345678";
             command.Validate();
 
             Assert.AreEqual(command.Valid, false);

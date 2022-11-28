@@ -6,7 +6,7 @@ namespace Shop.Domain.Entities
 {
     public class Order : Entity
     {
-        private IList<OrderItem> _items;
+        private readonly IList<OrderItem> _items;
 
         public Order(Customer customer, decimal deliveryFee)
         {
@@ -14,12 +14,11 @@ namespace Shop.Domain.Entities
                 new Contract()
                     .Requires()
                     .IsNotNull(customer, "Customer", "Cliente inválido")
-                    .IsGreaterThan(deliveryFee, 0, "DeliveryFee", "O valor deve ser maior que zero")
             );
 
             Customer = customer;
             Date = DateTime.Now;
-            Number = Guid.NewGuid().ToString().Replace("-", "").Substring(0,8);
+            Number = Guid.NewGuid().ToString().Substring(0,8);
             Status = EOrderStatus.WaitingPayment;
             _items = new List<OrderItem>();
             DeliveryFee = deliveryFee;
@@ -60,12 +59,8 @@ namespace Shop.Domain.Entities
 
         public void Cancel()
         {
-            if (Status == EOrderStatus.WaitingDelivery)
-            {
-                return;
-            }
-
             Status = EOrderStatus.Canceled;
         }
+
     }
 }
