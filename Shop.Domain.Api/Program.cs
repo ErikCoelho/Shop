@@ -1,15 +1,28 @@
+using Microsoft.EntityFrameworkCore;
+using Shop.Domain.Handlers;
+using Shop.Domain.Infra.Contexts;
+using Shop.Domain.Infra.Repositories;
+using Shop.Domain.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connectionString));
+
+builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IDeliveryFeeRepository, DeliveryFeeRepository>();
+
+builder.Services.AddTransient<OrderHandler, OrderHandler>();
+builder.Services.AddTransient<CustomerHandler, CustomerHandler>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

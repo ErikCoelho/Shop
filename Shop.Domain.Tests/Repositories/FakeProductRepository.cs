@@ -16,5 +16,20 @@ namespace Shop.Domain.Tests.Repositories
 
             return products;
         }
+
+        public IEnumerable<Product> GetActiveProducts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Product> GetInactiveProducts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

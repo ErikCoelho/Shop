@@ -5,6 +5,11 @@ namespace Shop.Domain.Tests.Repositories
 {
     public class FakeOrderRepository : IOrderRepository
     {
+        public IEnumerable<Order> GetAll(string customer)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Save(Order order)
         {
         }

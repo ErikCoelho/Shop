@@ -6,10 +6,10 @@ namespace Shop.Domain.Tests.Repositories
 {
     public class FakeCustomerRepository : ICustomerRepository
     {
-        public Customer Create(Customer customer)
-        {
-            return customer;
-        }
+        //public Customer Create(Customer customer)
+        //{
+        //    return customer;
+        //}
 
         public Customer Get(string document)
         {
@@ -21,6 +21,11 @@ namespace Shop.Domain.Tests.Repositories
                 return new Customer(name, doc, email, "senha321");
 
             return null;
+        }
+
+        void ICustomerRepository.Create(Customer customer)
+        {
+            
         }
     }
 }
