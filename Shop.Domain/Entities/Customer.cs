@@ -16,6 +16,7 @@ namespace Shop.Domain.Entities
             AddNotifications(Name, Email, Document);
         }
 
+        public string Image { get; set; }
         public Name Name { get; private set; }
         public Document Document { get; private set; }
         public Email Email { get; private set; }
