@@ -6,6 +6,11 @@ namespace Shop.Domain.Tests.Repositories
 {
     public class FakeCustomerRepository : ICustomerRepository
     {
+        public Customer Create(Customer customer)
+        {
+            return customer;
+        }
+
         public Customer Get(string document)
         {
             var name = new Name("Erik", "Coelho");

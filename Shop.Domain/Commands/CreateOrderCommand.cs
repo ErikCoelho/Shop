@@ -1,7 +1,6 @@
 ﻿using Flunt.Notifications;
 using Flunt.Validations;
 using Shop.Domain.Commands.Contracts;
-using Shop.Domain.ValueObjects;
 
 namespace Shop.Domain.Commands
 {
@@ -28,7 +27,6 @@ namespace Shop.Domain.Commands
             AddNotifications(new Contract()
                 .Requires()
                 .HasLen(Customer, 11, "Customer", "Documento inválido")
-                //.IsTrue(Document.IsCpf(Customer.ToString()), "Customer", "Documento inválido")
                 .IsGreaterThan(Items.Count, 0, "Items", "Nenhum item do pedido foi encontrado")
                 );
         }
