@@ -1,7 +1,6 @@
 ﻿using Flunt.Validations;
 using Shop.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace Shop.Domain.Entities
 {
@@ -9,15 +8,15 @@ namespace Shop.Domain.Entities
     {
         protected Order() { }
         private readonly IList<OrderItem> _items;
-        public Order(Customer customer, decimal deliveryFee)
+        public Order(string customerDoc, decimal deliveryFee)
         {
             AddNotifications(
                 new Contract()
                     .Requires()
-                    .IsNotNull(customer, "Customer", "Cliente inválido")
+                    .IsNotNull(customerDoc, "Customer", "Cliente inválido")
             );
 
-            Customer = customer;
+            CustomerDoc = customerDoc;
             Date = DateTime.Now;
             Number = Guid.NewGuid().ToString().Substring(0,8);
             Status = EOrderStatus.WaitingPayment;
@@ -25,7 +24,7 @@ namespace Shop.Domain.Entities
             DeliveryFee = deliveryFee;
         }
 
-        public Customer Customer { get; private set; }
+        public string CustomerDoc { get; private set; }
         public DateTime Date { get; private set; }
         public string Number { get; private set; }
         public decimal DeliveryFee { get; private set; }

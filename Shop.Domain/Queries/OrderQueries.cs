@@ -7,7 +7,7 @@ namespace Shop.Domain.Queries
     {
         public static Expression<Func<Order, bool>> GetAll(string customer)
         {
-            return x => x.Customer.Document.Number == customer;
+            return x => x.CustomerDoc == customer;
         }
     }
 }

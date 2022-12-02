@@ -35,10 +35,10 @@ namespace Shop.Domain.Handlers
                 return new GenericCommandResult(false, "Pedido inválido", Notifications);
 
             var customer = _customerRepository.Get(command.Customer);
-            var customerVo = new Customer(customer.Name, customer.Document, customer.Email, customer.PasswordHash);
+            //var customerVo = new Customer(customer.Name, customer.Document, customer.Email, customer.PasswordHash);
             var deliveryFee = _deliveryFeeRepository.Get(command.ZipCode);
             var products = _productRepository.Get(ExtractGuids.Extract(command.Items)).ToList();
-            var order = new Order(customerVo, deliveryFee);
+            var order = new Order(customer.Document.Number, deliveryFee);
             
             foreach(var item in command.Items)
             {

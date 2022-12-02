@@ -20,6 +20,10 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasColumnType("SMALLDATETIME")
                 .HasMaxLength(60);
 
+            builder.Property(x => x.CustomerDoc)
+                .IsRequired()
+                .HasColumnName("Customer");
+
             builder.Property(x => x.Number)
                 .IsRequired()
                 .HasColumnName("Number")
@@ -39,14 +43,6 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasMaxLength(60);
 
             builder.Ignore(x => x.Notifications);
-
-            builder
-                .HasOne(x => x.Customer)
-                .WithMany(x => x.Orders)
-                .HasConstraintName("FK_Order_Customer")
-                .OnDelete(DeleteBehavior.Cascade);
-
-
 
         }
     }
