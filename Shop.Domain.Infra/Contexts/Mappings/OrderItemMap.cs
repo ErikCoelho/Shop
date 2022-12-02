@@ -10,9 +10,10 @@ namespace Shop.Domain.Infra.Contexts.Mappings
         {
             builder.ToTable("OrderItem");
 
-            builder.Property(x => x.Product)
-                .IsRequired();
-                
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id);
+
             builder.Property(x => x.Quantity)
                 .IsRequired();
 
@@ -20,6 +21,16 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .IsRequired()
                 .HasColumnName("Price")
                 .HasColumnType("MONEY");
+
+            builder.Ignore(x => x.Notifications);
+
+            builder
+                .HasOne(x => x.Product)
+                .WithMany(x => x.OrderItems)
+                .HasConstraintName("FK_OrderItems_Customer")
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

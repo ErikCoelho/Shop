@@ -4,6 +4,7 @@ namespace Shop.Domain.Entities
 {
     public class OrderItem: Entity
     {
+        protected OrderItem() { }
         public OrderItem(Product product, int quantity)
         {
             AddNotifications(new Contract()

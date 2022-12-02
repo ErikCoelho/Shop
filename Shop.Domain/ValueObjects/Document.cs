@@ -5,16 +5,17 @@ namespace Shop.Domain.ValueObjects
 {
     public class Document : Notifiable
     {
+        protected Document() { }
         public Document(string number)
         {
             Number = number;
+
 
             AddNotifications(new Contract()
                 .Requires()
                 .IsTrue(IsCpf(number), "Document.Number", "Documento inválido")
             );
         }
-
         public string Number { get; private set; }
 
         public static bool IsCpf(string cpf)
@@ -52,5 +53,6 @@ namespace Shop.Domain.ValueObjects
             digito = digito + resto.ToString();
             return cpf.EndsWith(digito);
         }
+
     }
 }

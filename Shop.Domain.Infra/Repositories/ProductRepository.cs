@@ -15,9 +15,14 @@ namespace Shop.Domain.Infra.Repositories
             _context = context;
         }
 
+        //public Product GetById(Guid id)
+        //{
+        //    return (Product)_context.Products.AsNoTracking().Where(ProductQueries.GetById(id));
+        //}
+
         public Product GetById(Guid id)
         {
-            return (Product)_context.Products.AsNoTracking().Where(ProductQueries.GetById(id));
+            return _context.Products.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<Product> GetActiveProducts()
@@ -32,8 +37,18 @@ namespace Shop.Domain.Infra.Repositories
 
         public IEnumerable<Product> Get(IEnumerable<Guid> ids)
         {
-            throw new NotImplementedException();
+            var products = new List<Product>();
+            foreach(var id in ids)
+            {
+                products.Add(GetById(id));
+            }
+            return products;
         }
 
+        public void Create(Product product)
+        {
+            _context.Add(product);
+            _context.SaveChanges();
+        }
     }
 }

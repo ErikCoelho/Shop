@@ -20,9 +20,14 @@ namespace Shop.Domain.Infra.Repositories
             _context.SaveChanges();
         }
 
-        public Customer Get(string email)
+        //public Customer Get(string doc)
+        //{
+        //    return (Customer)_context.Customers.AsQueryable().Where(CustomerQueries.Get(doc));
+        //}
+
+        public Customer Get(string doc)
         {
-            return (Customer)_context.Customers.Where(CustomerQueries.Get(email));
+            return _context.Customers.FirstOrDefault(x => x.Document.Number == doc);
         }
     }
 }

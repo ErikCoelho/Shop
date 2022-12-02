@@ -6,6 +6,8 @@ namespace Shop.Domain.Repositories
     {
         IEnumerable<Product> Get(IEnumerable<Guid> ids);
 
+        void Create(Product product);
+
         Product GetById(Guid id);
 
         IEnumerable<Product> GetActiveProducts();

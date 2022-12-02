@@ -12,11 +12,7 @@ namespace Shop.Domain.Infra.Contexts.Mappings
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Customer)
-                .IsRequired()
-                .HasColumnName("Customer")
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(50);
+            builder.Property(x => x.Id);
 
             builder.Property(x => x.Date)
                 .IsRequired()
@@ -41,6 +37,14 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasColumnName("Status")
                 .HasColumnType("DECIMAL")
                 .HasMaxLength(60);
+
+            builder.Ignore(x => x.Notifications);
+
+            builder
+                .HasOne(x => x.Customer)
+                .WithMany(x => x.Orders)
+                .HasConstraintName("FK_Order_Customer")
+                .OnDelete(DeleteBehavior.Cascade);
 
 
 

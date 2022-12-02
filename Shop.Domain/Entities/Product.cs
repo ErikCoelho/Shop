@@ -1,7 +1,10 @@
-﻿namespace Shop.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Shop.Domain.Entities
 {
     public class Product: Entity
     {
+        protected Product() { }
         public Product(string title, string description, decimal price, bool active)
         {
             Title = title;
@@ -15,6 +18,9 @@
         public string Description { get; private set; }
         public decimal Price { get; private set; }
         public bool Active { get; private set; }
+
+        [NotMapped]
+        public IList<OrderItem> OrderItems { get; set; }
 
     }
 }

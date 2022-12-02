@@ -12,6 +12,8 @@ namespace Shop.Domain.Infra.Contexts.Mappings
 
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Id);
+
             builder.Property(x => x.Title)
                 .IsRequired()
                 .HasColumnName("Title")
@@ -23,6 +25,7 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasColumnName("Description")
                 .HasColumnType("TEXT");
 
+
             builder.Property(x => x.Price)
                 .IsRequired()
                 .HasColumnName("Price")
@@ -33,8 +36,11 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasColumnName("Active")
                 .HasColumnType("BIT");
 
+            builder.Ignore(x => x.Notifications);
+
             builder.Property(x => x.Image)
                 .IsRequired(false);
+
 
         }
     }

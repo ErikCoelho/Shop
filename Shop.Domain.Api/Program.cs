@@ -16,11 +16,21 @@ builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Datab
 
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IDeliveryFeeRepository, DeliveryFeeRepository>();
 
 builder.Services.AddTransient<OrderHandler, OrderHandler>();
+builder.Services.AddTransient<ProductHandler, ProductHandler>();
 builder.Services.AddTransient<CustomerHandler, CustomerHandler>();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevPolicy",
+        builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -31,8 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

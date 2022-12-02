@@ -5,6 +5,11 @@ namespace Shop.Domain.Tests.Repositories
 {
     public class FakeProductRepository : IProductRepository
     {
+        public void Create(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Product> Get(IEnumerable<Guid> ids)
         {
             IList<Product> products = new List<Product>();

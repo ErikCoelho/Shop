@@ -1,13 +1,14 @@
 ﻿using Flunt.Validations;
 using Shop.Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Shop.Domain.Entities
 {
     public class Order : Entity
     {
+        protected Order() { }
         private readonly IList<OrderItem> _items;
-
         public Order(Customer customer, decimal deliveryFee)
         {
             AddNotifications(
@@ -28,6 +29,8 @@ namespace Shop.Domain.Entities
         public DateTime Date { get; private set; }
         public string Number { get; private set; }
         public decimal DeliveryFee { get; private set; }
+
+        [NotMapped]
         public IReadOnlyCollection<OrderItem> Items { get { return _items.ToArray(); } }
         public EOrderStatus Status { get; private set; }
 

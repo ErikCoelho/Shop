@@ -7,7 +7,7 @@ namespace Shop.Domain.Queries
     {
         public static Expression<Func<Customer, bool>> Get(string customer)
         {
-            return x => x.Email.ToString() == customer;
+            return x => x.Document.Number == customer;
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Shop.Domain.Repositories
     public interface ICustomerRepository
     {
         void Create(Customer customer);
-        Customer Get(string email);
+        Customer Get(string doc);
     }
 }

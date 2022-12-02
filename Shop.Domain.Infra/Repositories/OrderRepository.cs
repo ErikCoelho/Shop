@@ -16,7 +16,7 @@ namespace Shop.Domain.Infra.Repositories
 
         public IEnumerable<Order> GetAll(string customer)
         {
-            return _context.Orders.Where(OrderQueries.GetAll(customer)).OrderBy(x => x.Date);
+            return _context.Orders.AsQueryable().Where(OrderQueries.GetAll(customer)).OrderBy(x => x.Date);
         }
 
         public void Save(Order order)
