@@ -1,4 +1,4 @@
-﻿using Shop.Domain.Commands;
+﻿using Shop.Domain.Commands.OrderItem;
 
 namespace Shop.Domain.Utils
 {

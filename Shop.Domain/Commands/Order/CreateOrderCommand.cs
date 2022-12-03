@@ -1,8 +1,9 @@
 ﻿using Flunt.Notifications;
 using Flunt.Validations;
 using Shop.Domain.Commands.Contracts;
+using Shop.Domain.Commands.OrderItem;
 
-namespace Shop.Domain.Commands
+namespace Shop.Domain.Commands.Order
 {
     public class CreateOrderCommand : Notifiable, ICommand
     {

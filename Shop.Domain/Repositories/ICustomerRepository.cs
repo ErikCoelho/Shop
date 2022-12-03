@@ -6,5 +6,7 @@ namespace Shop.Domain.Repositories
     {
         void Create(Customer customer);
         Customer Get(string doc);
+
+        Customer GetEmail(string email);
     }
 }

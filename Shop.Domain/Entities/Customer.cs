@@ -28,6 +28,9 @@ namespace Shop.Domain.Entities
         [NotMapped]
         public IList<Order> Orders { get; set; }
 
+        [NotMapped]
+        public IList<Role> Roles { get; set; }
+
     }
 
 }

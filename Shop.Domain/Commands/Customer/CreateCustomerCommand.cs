@@ -2,7 +2,7 @@
 using Flunt.Validations;
 using Shop.Domain.Commands.Contracts;
 
-namespace Shop.Domain.Commands
+namespace Shop.Domain.Commands.Customer
 {
     public class CreateCustomerCommand : Notifiable, ICommand
     {
@@ -16,11 +16,11 @@ namespace Shop.Domain.Commands
             PasswordHash = passwordHash;
         }
 
-        public string FirstName { get;  set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Document { get;  set; }
-        public string Email { get;  set; }
-        public string PasswordHash { get;  set; }
+        public string Document { get; set; }
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
 
         public void Validate()
         {

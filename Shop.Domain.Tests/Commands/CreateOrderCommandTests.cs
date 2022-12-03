@@ -1,4 +1,5 @@
 ﻿using Shop.Domain.Commands;
+using Shop.Domain.Commands.Order;
 
 namespace Shop.Domain.Tests.Commands
 {

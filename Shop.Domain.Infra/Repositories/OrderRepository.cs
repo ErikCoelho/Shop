@@ -1,4 +1,5 @@
-﻿using Shop.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Domain.Entities;
 using Shop.Domain.Infra.Contexts;
 using Shop.Domain.Queries;
 using Shop.Domain.Repositories;
@@ -16,12 +17,12 @@ namespace Shop.Domain.Infra.Repositories
 
         //public IEnumerable<Order> GetAll(string customer)
         //{
-        //    return _context.Orders.AsQueryable().Where(OrderQueries.GetAll(customer)).OrderBy(x => x.Date);
+        //    return _context.Orders.AsNoTracking().Where(OrderQueries.GetAll(customer));
         //}
 
         public IEnumerable<Order> GetAll(string customer)
         {
-            return _context.Orders.Where(x => x.CustomerDoc == customer).OrderBy(x => x.Date);
+            return _context.Orders.AsNoTracking().Where(x => x.CustomerDoc == customer).ToList();
         }
 
         public void Save(Order order)

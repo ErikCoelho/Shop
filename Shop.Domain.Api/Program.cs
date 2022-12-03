@@ -1,10 +1,31 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Shop.Domain.Api;
 using Shop.Domain.Handlers;
 using Shop.Domain.Infra.Contexts;
 using Shop.Domain.Infra.Repositories;
 using Shop.Domain.Repositories;
+using Shop.Domain.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -22,6 +43,7 @@ builder.Services.AddTransient<IDeliveryFeeRepository, DeliveryFeeRepository>();
 builder.Services.AddTransient<OrderHandler, OrderHandler>();
 builder.Services.AddTransient<ProductHandler, ProductHandler>();
 builder.Services.AddTransient<CustomerHandler, CustomerHandler>();
+builder.Services.AddTransient<TokenService>();
 
 
 builder.Services.AddCors(options =>

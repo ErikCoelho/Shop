@@ -1,4 +1,4 @@
-﻿using Shop.Domain.Commands;
+﻿using Shop.Domain.Commands.Customer;
 
 namespace Shop.Domain.Tests.Commands
 {

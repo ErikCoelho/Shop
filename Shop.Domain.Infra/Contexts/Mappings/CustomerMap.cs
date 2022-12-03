@@ -58,6 +58,24 @@ namespace Shop.Domain.Infra.Contexts.Mappings
             builder
                 .HasIndex(x => x.Slug, "IX_User_Slug")
                 .IsUnique();
+
+            builder
+                .HasMany(x => x.Roles)
+                .WithMany(x => x.Customers)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserRole",
+                    role => role
+                        .HasOne<Role>()
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .HasConstraintName("FK_CustomerRole_RoleId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    user => user
+                        .HasOne<Customer>()
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .HasConstraintName("FK_CustomerRole_CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Shop.Domain.Commands;
+using Shop.Domain.Commands.Customer;
 using Shop.Domain.Handlers;
 using Shop.Domain.Tests.Repositories;
 

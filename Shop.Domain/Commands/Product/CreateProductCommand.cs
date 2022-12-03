@@ -2,7 +2,7 @@
 using Flunt.Validations;
 using Shop.Domain.Commands.Contracts;
 
-namespace Shop.Domain.Commands
+namespace Shop.Domain.Commands.Product
 {
     public class CreateProductCommand : Notifiable, ICommand
     {
@@ -16,10 +16,10 @@ namespace Shop.Domain.Commands
             Active = active;
         }
 
-        public string Title { get;  set; }
-        public string Description { get;  set; }
-        public decimal Price { get;  set; }
-        public bool Active { get;  set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public bool Active { get; set; }
 
         public void Validate()
         {
