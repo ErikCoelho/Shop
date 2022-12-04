@@ -8,7 +8,7 @@ namespace Shop.Domain.Tests.Handlers
     [TestClass]
     public class CustomerHandlerTest
     {
-        private CustomerHandler _handler = new(new FakeCustomerRepository());
+        private CustomerHandler _handler = new(new FakeCustomerRepository(), null);
         private readonly CreateCustomerCommand _command = new();
 
         [TestMethod]

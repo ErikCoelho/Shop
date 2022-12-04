@@ -1,5 +1,6 @@
 ﻿using Shop.Domain.Commands;
 using Shop.Domain.Commands.Order;
+using Shop.Domain.Commands.OrderItem;
 using Shop.Domain.Handlers;
 using Shop.Domain.Repositories;
 using Shop.Domain.Tests.Repositories;

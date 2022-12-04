@@ -1,8 +1,9 @@
-﻿using Flunt.Validations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Flunt.Validations;
 
 namespace Shop.Domain.Entities
 {
-    public class OrderItem: Entity
+    public class OrderItem : Entity
     {
         protected OrderItem() { }
         public OrderItem(Product product, int quantity)

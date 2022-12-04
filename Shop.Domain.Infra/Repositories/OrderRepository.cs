@@ -22,7 +22,7 @@ namespace Shop.Domain.Infra.Repositories
 
         public IEnumerable<Order> GetAll(string customer)
         {
-            return _context.Orders.AsNoTracking().Where(x => x.CustomerDoc == customer).ToList();
+            return _context.Orders.AsNoTracking().Where(x => x.CustomerDoc == customer).Include(x =>x.Items).ToList();
         }
 
         public void Save(Order order)

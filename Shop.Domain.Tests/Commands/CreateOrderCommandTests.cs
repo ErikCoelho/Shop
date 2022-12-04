@@ -1,5 +1,6 @@
 ﻿using Shop.Domain.Commands;
 using Shop.Domain.Commands.Order;
+using Shop.Domain.Commands.OrderItem;
 
 namespace Shop.Domain.Tests.Commands
 {

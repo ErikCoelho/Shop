@@ -43,7 +43,6 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasMaxLength(60);
 
             builder.Ignore(x => x.Notifications);
-
         }
     }
 }

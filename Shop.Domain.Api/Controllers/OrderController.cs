@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Domain.Commands;
 using Shop.Domain.Commands.Order;
 using Shop.Domain.Entities;
@@ -8,19 +9,21 @@ using Shop.Domain.Repositories;
 namespace Shop.Domain.Api.Controllers
 {
     [ApiController]
-    public class OrderController: ControllerBase
+    public class OrderController : ControllerBase
     {
         [HttpGet("v1/orders")]
+        [Authorize]
         public IEnumerable<Order> GetAll(
-            [FromServices]IOrderRepository repository)
+            [FromServices] IOrderRepository repository)
         {
-            return repository.GetAll("28791322820");
+            var customer = User.Claims.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
+            return repository.GetAll(customer);
         }
 
         [HttpPost("v1/orders")]
-        public  GenericCommandResult Create(
-            [FromBody]CreateOrderCommand command,
-            [FromServices]OrderHandler handler)
+        public GenericCommandResult Create(
+            [FromBody] CreateOrderCommand command,
+            [FromServices] OrderHandler handler)
         {
             return (GenericCommandResult)handler.Handle(command);
         }

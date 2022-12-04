@@ -25,10 +25,6 @@ namespace Shop.Domain.Entities
         public string Slug { get; private set; }
         public string PasswordHash { get; private set; }
 
-        [NotMapped]
-        public IList<Order> Orders { get; set; }
-
-        [NotMapped]
         public IList<Role> Roles { get; set; }
 
     }

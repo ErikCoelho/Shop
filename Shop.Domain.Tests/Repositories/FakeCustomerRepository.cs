@@ -23,9 +23,16 @@ namespace Shop.Domain.Tests.Repositories
             return null;
         }
 
-        void ICustomerRepository.Create(Customer customer)
+        public Customer GetEmail(string email)
         {
-            
+            throw new NotImplementedException();
         }
+
+        public void Create(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

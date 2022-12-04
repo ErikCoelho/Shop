@@ -24,13 +24,6 @@ namespace Shop.Domain.Infra.Contexts.Mappings
 
             builder.Ignore(x => x.Notifications);
 
-            builder
-                .HasOne(x => x.Product)
-                .WithMany(x => x.OrderItems)
-                .HasConstraintName("FK_OrderItems_Customer")
-                .OnDelete(DeleteBehavior.Cascade);
-
-
         }
     }
 }

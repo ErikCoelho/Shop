@@ -59,6 +59,8 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasIndex(x => x.Slug, "IX_User_Slug")
                 .IsUnique();
 
+            
+
             builder
                 .HasMany(x => x.Roles)
                 .WithMany(x => x.Customers)
