@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Domain.Commands;
 using Shop.Domain.Commands.Product;
 using Shop.Domain.Entities;
@@ -26,6 +27,7 @@ namespace Shop.Domain.Api.Controllers
         }
 
         [HttpPost("v1/products")]
+        [Authorize(Roles = "admin")]
         public GenericCommandResult Create(
             [FromBody] CreateProductCommand command,
             [FromServices] ProductHandler handler)

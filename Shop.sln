@@ -3,21 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain", "Shop.Domain\Shop.Domain.csproj", "{710D4670-AE12-4DDC-9870-DBB17CD1E173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Domain", "Shop.Domain\Shop.Domain.csproj", "{710D4670-AE12-4DDC-9870-DBB17CD1E173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain.Api", "Shop.Domain.Api\Shop.Domain.Api.csproj", "{0307C70B-678F-49FE-BC9B-0EE133953C8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Domain.Api", "Shop.Domain.Api\Shop.Domain.Api.csproj", "{0307C70B-678F-49FE-BC9B-0EE133953C8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain.Tests", "Shop.Domain.Tests\Shop.Domain.Tests.csproj", "{14E07FD2-5593-43CE-8872-81710012CBCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Domain.Tests", "Shop.Domain.Tests\Shop.Domain.Tests.csproj", "{14E07FD2-5593-43CE-8872-81710012CBCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain.Infra", "Shop.Domain.Infra\Shop.Domain.Infra.csproj", "{10A5A2F9-07D1-4AF1-9383-930EB8A282CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Domain.Infra", "Shop.Domain.Infra\Shop.Domain.Infra.csproj", "{10A5A2F9-07D1-4AF1-9383-930EB8A282CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{710D4670-AE12-4DDC-9870-DBB17CD1E173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +33,11 @@ Global
 		{10A5A2F9-07D1-4AF1-9383-930EB8A282CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10A5A2F9-07D1-4AF1-9383-930EB8A282CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10A5A2F9-07D1-4AF1-9383-930EB8A282CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4373039-254A-4979-9167-42B4C1460158}
 	EndGlobalSection
 EndGlobal

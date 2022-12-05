@@ -21,6 +21,7 @@ namespace Shop.Domain.Api.Controllers
         }
 
         [HttpPost("v1/orders")]
+        [Authorize]
         public GenericCommandResult Create(
             [FromBody] CreateOrderCommand command,
             [FromServices] OrderHandler handler)

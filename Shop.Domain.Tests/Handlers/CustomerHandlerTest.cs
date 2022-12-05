@@ -1,6 +1,7 @@
 ﻿using Shop.Domain.Commands;
 using Shop.Domain.Commands.Customer;
 using Shop.Domain.Handlers;
+using Shop.Domain.Services;
 using Shop.Domain.Tests.Repositories;
 
 namespace Shop.Domain.Tests.Handlers
@@ -13,7 +14,7 @@ namespace Shop.Domain.Tests.Handlers
 
         [TestMethod]
         [TestCategory("Handlers")]
-        public void Dado_um_dados_incorretos_o_usuario_nao_devera_ser_criado()
+        public void Dado_um_dados_incorretos_o_usuario_nao_deve_ser_criado()
         {
             _command.FirstName = "Erik";
             _command.LastName = "";
@@ -26,12 +27,13 @@ namespace Shop.Domain.Tests.Handlers
 
         [TestMethod]
         [TestCategory("Handlers")]
-        public void Dado_um_dados_corretos_o_usuario_devera_ser_criado()
+        public void Dado_um_dados_corretos_o_usuario_deve_ser_criado()
         {
             _command.FirstName = "Erik";
             _command.LastName = "Coelho";
             _command.Document = "19766465029";
             _command.Email = "test@email.com";
+            _command.PasswordHash = "senha123";
             _handler.Handle(_command);
             var result = (GenericCommandResult)_handler.Handle(_command);
             Assert.AreEqual(result.Success, true);

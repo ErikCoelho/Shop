@@ -9,7 +9,8 @@ namespace Shop.Domain.Extensions
         {
             var result = new List<Claim>
         {
-            new(ClaimTypes.Name, customer.Document.Number)
+            new(ClaimTypes.Name, customer.Document.Number),
+            new(ClaimTypes.Role, "customer")
         };
             result.AddRange(
                 customer.Roles.Select(role => new Claim(ClaimTypes.Role, role.Slug))

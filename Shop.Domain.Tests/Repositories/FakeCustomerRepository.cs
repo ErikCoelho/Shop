@@ -30,7 +30,7 @@ namespace Shop.Domain.Tests.Repositories
 
         public void Create(Customer customer)
         {
-            throw new NotImplementedException();
+            
         }
 
 

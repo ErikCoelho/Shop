@@ -42,6 +42,12 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasColumnType("DECIMAL")
                 .HasMaxLength(60);
 
+            builder.Property(x => x.TotalOrder)
+                .IsRequired()
+                .HasColumnName("TotalOrder")
+                .HasColumnType("DECIMAL")
+                .HasMaxLength(60);
+
             builder.Ignore(x => x.Notifications);
         }
     }

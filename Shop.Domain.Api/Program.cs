@@ -10,6 +10,7 @@ using Shop.Domain.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
 
 builder.Services.AddAuthentication(x =>
@@ -31,9 +32,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connectionString));
 
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
@@ -67,3 +68,37 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
+
+
+//void ConfigureAuthentication(WebApplicationBuilder builder)
+//{
+//    var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
+
+//    builder.Services.AddAuthentication(x =>
+//    {
+//        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    }).AddJwtBearer(x =>
+//    {
+//        x.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuerSigningKey = true,
+//            IssuerSigningKey = new SymmetricSecurityKey(key),
+//            ValidateIssuer = false,
+//            ValidateAudience = false
+//        };
+//    });
+//}
+
+//void ConfigureServices(WebApplicationBuilder builder)
+//{
+//    builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+//    builder.Services.AddTransient<IProductRepository, ProductRepository>();
+//    builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+//    builder.Services.AddTransient<IDeliveryFeeRepository, DeliveryFeeRepository>();
+
+//    builder.Services.AddTransient<OrderHandler, OrderHandler>();
+//    builder.Services.AddTransient<ProductHandler, ProductHandler>();
+//    builder.Services.AddTransient<CustomerHandler, CustomerHandler>();
+//    builder.Services.AddTransient<TokenService>();
+//}
