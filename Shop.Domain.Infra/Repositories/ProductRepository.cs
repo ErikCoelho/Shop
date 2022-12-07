@@ -15,14 +15,9 @@ namespace Shop.Domain.Infra.Repositories
             _context = context;
         }
 
-        //public Product GetById(Guid id)
-        //{
-        //    return (Product)_context.Products.AsNoTracking().Where(ProductQueries.GetById(id));
-        //}
-
         public Product GetById(Guid id)
         {
-            return _context.Products.FirstOrDefault(x => x.Id == id);
+            return _context.Products.FirstOrDefault(x => x.Id == id)!;
         }
 
         public IEnumerable<Product> GetActiveProducts()
