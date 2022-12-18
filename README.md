@@ -3,7 +3,7 @@
 Esta é uma api para uma loja online, implementando as melhores soluções na arquitetura da Api.
 
 ## Este projeto conta com:
-* Projeto separado por contextos
+* Projeto separado por camadas
 * Implementação de CQRS
 * Implementação de Design By Contract
 * Implementação de Domain Notifications
