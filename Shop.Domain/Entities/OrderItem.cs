@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Flunt.Validations;
+﻿using Flunt.Validations;
 
 namespace Shop.Domain.Entities
 {

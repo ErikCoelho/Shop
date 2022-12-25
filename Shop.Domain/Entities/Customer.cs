@@ -1,5 +1,4 @@
 ﻿using Shop.Domain.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shop.Domain.Entities
 {

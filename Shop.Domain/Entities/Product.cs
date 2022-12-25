@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Shop.Domain.Entities
+﻿namespace Shop.Domain.Entities
 {
     public class Product : Entity
     {

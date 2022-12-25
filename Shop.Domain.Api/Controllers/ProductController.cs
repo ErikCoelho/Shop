@@ -18,7 +18,7 @@ namespace Shop.Domain.Api.Controllers
             return repository.GetActiveProducts();
         }
 
-        [HttpGet("v1/products/{id}")]
+        [HttpGet("v1/product/{id}")]
         public Product GetById(
             [FromRoute] Guid id,
             [FromServices] IProductRepository repository)

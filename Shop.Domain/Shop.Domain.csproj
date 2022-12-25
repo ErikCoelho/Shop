@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="flunt" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="SecureIdentity" Version="1.0.4" />
   </ItemGroup>
 

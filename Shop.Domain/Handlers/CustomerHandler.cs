@@ -52,7 +52,7 @@ namespace Shop.Domain.Handlers
 
             var customer = _repository.GetEmail(command.Email);
 
-            if(!PasswordHasher.Verify(customer.PasswordHash, command.PasswordHash))
+            if(!PasswordHasher.Verify(customer.PasswordHash, command.Password))
                 return new GenericCommandResult(false, "Usuário ou senha inválidos", Notifications);
 
             AddNotifications(customer);
