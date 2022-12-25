@@ -51,13 +51,12 @@ namespace Shop.Domain.Handlers
                 return new GenericCommandResult(false, "Usuário ou senha inválidos", Notifications);
 
             var customer = _repository.GetEmail(command.Email);
+            if (customer == null)
+            {
+                return new GenericCommandResult(false, "Usuário ou senha inválidos", Notifications);
+            }
 
             if(!PasswordHasher.Verify(customer.PasswordHash, command.Password))
-                return new GenericCommandResult(false, "Usuário ou senha inválidos", Notifications);
-
-            AddNotifications(customer);
-
-            if (Invalid)
                 return new GenericCommandResult(false, "Usuário ou senha inválidos", Notifications);
 
             var token = _tokenService.GenerateToken(customer);
