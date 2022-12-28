@@ -29,10 +29,29 @@ namespace Shop.Domain.Api.Controllers
         [HttpPost("v1/products")]
         [Authorize(Roles = "admin")]
         public GenericCommandResult Create(
-            [FromBody] CreateProductCommand command,
+            [FromBody] EditProductCommand command,
             [FromServices] ProductHandler handler)
         {
             return (GenericCommandResult)handler.Handle(command);
+        }
+
+        [HttpPut("v1/products/{id:Guid}")]
+        [Authorize(Roles = "admin")]
+        public GenericCommandResult Edit(
+            [FromRoute] Guid id,
+            [FromBody] EditProductCommand command,
+            [FromServices] ProductHandler handler)
+        {
+            return (GenericCommandResult)handler.HandleEdit(command, id);
+        }
+
+        [HttpDelete("v1/products/{id:Guid}")]
+        [Authorize(Roles = "admin")]
+        public GenericCommandResult Delete(
+            [FromRoute] Guid id,
+            [FromServices] ProductHandler handler)
+        {
+            return (GenericCommandResult)handler.HandleDelete(id);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Shop.Domain.Tests.Entities
         private static readonly Name _name = new("Erik", "Coelho");
         private static readonly Document _doc = new ("098.952.210-53");
         private static readonly Email _email = new ("eriktest@gmail.com");
-        private static readonly Product _product = new ("Iphone", "Novo iphone xs 110 ultra max", 55, true);
+        private static readonly Product _product = new (null,"Iphone", "Novo iphone xs 110 ultra max", 55, "true");
         private static readonly Customer _customer = new (_name, _doc, _email, "senha123");
         private static readonly Order _order = new ("098.952.210-53", 5);
         

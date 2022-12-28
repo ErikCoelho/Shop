@@ -22,7 +22,7 @@ namespace Shop.Domain.Infra.Repositories
 
         public Customer Get(string doc)
         {
-            return _context.Customers.FirstOrDefault(x => x.Document.Number == doc)!;
+            return _context.Customers.AsNoTracking().FirstOrDefault(x => x.Document.Number == doc)!;
         }
 
         public Customer GetEmail(string email)

@@ -10,12 +10,14 @@ namespace Shop.Domain.Tests.Queries
 
         public ProductQueriesTests()
         {
-            _products = new List<Product>();
-            _products.Add(new Product("Produto 01", "this is a test", 10, true));
-            _products.Add(new Product("Produto 02", "this is a test", 20, true));
-            _products.Add(new Product("Produto 03", "this is a test", 30, true));
-            _products.Add(new Product("Produto 04", "this is a test", 40, false));
-            _products.Add(new Product("Produto 05", "this is a test", 50, false));
+            _products = new List<Product>
+            {
+                new Product(null, "Produto 01", "this is a test", 10, "true"),
+                new Product(null, "Produto 02", "this is a test", 20, "true"),
+                new Product(null, "Produto 03", "this is a test", 30, "true"),
+                new Product(null, "Produto 04", "this is a test", 40, "false"),
+                new Product(null, "Produto 05", "this is a test", 50, "false")
+            };
         }
 
         [TestMethod]

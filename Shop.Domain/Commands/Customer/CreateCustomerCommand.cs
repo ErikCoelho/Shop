@@ -31,7 +31,7 @@ namespace Shop.Domain.Commands.Customer
                 .HasMinLen(LastName, 3, "LastName", "O sobrenome deve conter pelo menos 3 caracteres")
                 .HasMaxLen(LastName, 40, "LastName", "O sobrenome deve conter no máximo 40 caracteres")
                 .IsEmail(Email, "Email", "O E-mail é inválido")
-                .HasLen(Document, 11, "Document", "CPF inválido")
+                .HasMinLen(Document, 11, "Document", "CPF inválido")
                 );
         }
     }

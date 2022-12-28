@@ -8,7 +8,7 @@ using Shop.Domain.Repositories;
 
 namespace Shop.Domain.Handlers
 {
-    public class ProductHandler : Notifiable, IHandler<CreateProductCommand>
+    public class ProductHandler : Notifiable, IHandler<EditProductCommand>
     {
         private readonly IProductRepository _productRepository;
 
@@ -17,13 +17,13 @@ namespace Shop.Domain.Handlers
             _productRepository = repository;
         }
 
-        public ICommandResult Handle(CreateProductCommand command)
+        public ICommandResult Handle(EditProductCommand command)
         {
             command.Validate();
             if(command.Invalid)
                 return new GenericCommandResult(false, "Produto inválido", Notifications);
 
-            var product = new Product(command.Title, command.Description, command.Price, command.Active);
+            var product = new Product(command.Image, command.Title, command.Description, command.Price, command.Active);
 
             AddNotifications(product.Notifications);
 
@@ -32,6 +32,37 @@ namespace Shop.Domain.Handlers
 
             _productRepository.Create(product);
             return new GenericCommandResult(true, $"Produto {product.Id} criado com sucesso", product);
+        }
+
+        public ICommandResult HandleEdit(EditProductCommand command, Guid id)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Produto inválido", Notifications);
+
+            var product =  _productRepository.GetById(id);
+            if(product == null)
+                return new GenericCommandResult(false, "O produto não existe", Notifications);
+
+            product.UpdateCustomer(command.Image, command.Title, command.Description, command.Price, command.Active);
+
+            AddNotifications(product.Notifications);
+
+            if (Invalid)
+                return new GenericCommandResult(false, "Falha ao atualizar o produto", Notifications);
+
+            _productRepository.Update(product);
+            return new GenericCommandResult(true, $"Produto {product.Id} atualizado com sucesso", product);
+        }
+
+        public ICommandResult HandleDelete(Guid id)
+        {
+            var product = _productRepository.GetById(id);
+            if (product == null)
+                return new GenericCommandResult(false, "O produto não existe", Notifications);
+
+            _productRepository.Delete(product);
+            return new GenericCommandResult(true, $"Produto {product.Id} deletado com sucesso", product);
         }
     }
 }

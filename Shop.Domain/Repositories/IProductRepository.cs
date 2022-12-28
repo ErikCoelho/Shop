@@ -8,6 +8,10 @@ namespace Shop.Domain.Repositories
 
         void Create(Product product);
 
+        void Update(Product product);
+
+        void Delete(Product product);
+
         Product GetById(Guid id);
 
         IEnumerable<Product> GetActiveProducts();

@@ -10,14 +10,19 @@ namespace Shop.Domain.Tests.Repositories
             throw new NotImplementedException();
         }
 
+        public void Delete(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Product> Get(IEnumerable<Guid> ids)
         {
             IList<Product> products = new List<Product>();
-            products.Add(new Product("Produto 1", "Celular", 10, true));
-            products.Add(new Product("Produto 2", "Celular", 10, true));
-            products.Add(new Product("Produto 3", "Celular", 10, true));
-            products.Add(new Product("Produto 4", "Notebook", 10, false));
-            products.Add(new Product("Produto 5", "Notebook", 10, false));
+            products.Add(new Product(null, "Produto 1", "Celular", 10, "true"));
+            products.Add(new Product(null, "Produto 2", "Celular", 10, "true"));
+            products.Add(new Product(null, "Produto 3", "Celular", 10, "true"));
+            products.Add(new Product(null, "Produto 4", "Notebook", 10, "false"));
+            products.Add(new Product(null, "Produto 5", "Notebook", 10, "false"));
 
             return products;
         }
@@ -33,6 +38,11 @@ namespace Shop.Domain.Tests.Repositories
         }
 
         public IEnumerable<Product> GetInactiveProducts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Product product)
         {
             throw new NotImplementedException();
         }

@@ -8,7 +8,7 @@ namespace Shop.Domain.ValueObjects
         protected Document() { }
         public Document(string number)
         {
-            Number = number;
+            Number = number.Replace(".", "").Replace("-", "");
 
 
             AddNotifications(new Contract()
