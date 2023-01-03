@@ -18,7 +18,15 @@ namespace Shop.Domain.Api.Controllers
             return repository.GetActiveProducts();
         }
 
-        [HttpGet("v1/product/{id}")]
+        [HttpGet("v1/products/inactive")]
+        [Authorize(Roles = "admin")]
+        public IEnumerable<Product> GetAllAdmin(
+            [FromServices] IProductRepository repository)
+        {
+            return repository.GetInactiveProducts();
+        }
+
+        [HttpGet("v1/products/{id}")]
         public Product GetById(
             [FromRoute] Guid id,
             [FromServices] IProductRepository repository)

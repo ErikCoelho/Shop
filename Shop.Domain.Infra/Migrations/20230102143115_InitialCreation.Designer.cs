@@ -12,8 +12,8 @@ using Shop.Domain.Infra.Contexts;
 namespace Shop.Domain.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221205133813_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230102143115_InitialCreation")]
+    partial class InitialCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,7 +109,7 @@ namespace Shop.Domain.Infra.Migrations
                         .HasColumnType("MONEY")
                         .HasColumnName("Price");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid>("Product")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -118,8 +118,6 @@ namespace Shop.Domain.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderItem", (string)null);
                 });
@@ -268,14 +266,6 @@ namespace Shop.Domain.Infra.Migrations
                     b.HasOne("Shop.Domain.Entities.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
-
-                    b.HasOne("Shop.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("UserRole", b =>

@@ -44,7 +44,7 @@ namespace Shop.Domain.Handlers
             if(product == null)
                 return new GenericCommandResult(false, "O produto não existe", Notifications);
 
-            product.UpdateCustomer(command.Image, command.Title, command.Description, command.Price, command.Active);
+            product.UpdateProduct(command.Image, command.Title, command.Description, command.Price, command.Active);
 
             AddNotifications(product.Notifications);
 

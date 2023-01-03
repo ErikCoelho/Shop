@@ -13,10 +13,9 @@ namespace Shop.Domain.Tests.Commands
         [TestCategory("Commands")]
         public void Dado_um_comand_invalido_o_pedido_nao_deve_ser_gerado()
         {
-            _command.Customer = "000";
             _command.ZipCode = "12345678";
-            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
-            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
+            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 0));
+            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 0));
             _command.Validate();
 
             Assert.AreEqual(_command.Valid, false);
@@ -26,7 +25,6 @@ namespace Shop.Domain.Tests.Commands
         [TestCategory("Commands")]
         public void Dado_um_comand_valido_o_pedido_deve_ser_gerado()
         {
-            _command.Customer = "59493843009";
             _command.ZipCode = "12345678";
             _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
             _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
@@ -39,7 +37,6 @@ namespace Shop.Domain.Tests.Commands
         [TestCategory("Commands")]
         public void Dado_um_comand_sem_itens_o_pedido_nao_deve_ser_gerado()
         {
-            _command.Customer = "594.938.430-09";
             _command.ZipCode = "12345678";
             _command.Validate();
 

@@ -5,7 +5,7 @@ namespace Shop.Domain.Entities
     public class OrderItem : Entity
     {
         protected OrderItem() { }
-        public OrderItem(Product product, int quantity)
+        public OrderItem(Guid product, int quantity, decimal price)
         {
             AddNotifications(new Contract()
                     .Requires()
@@ -14,11 +14,11 @@ namespace Shop.Domain.Entities
                     );
 
             Product = product;
-            Price = Product != null ? product.Price : 0;
+            Price = price;
             Quantity = quantity;
         }
 
-        public Product Product { get; private set; }
+        public Guid Product { get; private set; }
         public decimal Price { get; private set; }
         public int Quantity { get; private set; }
 

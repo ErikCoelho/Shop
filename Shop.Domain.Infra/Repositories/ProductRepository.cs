@@ -57,5 +57,6 @@ namespace Shop.Domain.Infra.Repositories
             _context.Products.Remove(product); 
             _context.SaveChanges();
         }
+
     }
 }

@@ -19,7 +19,7 @@
         public bool Active { get; private set; }
 
 
-        public void UpdateCustomer(string image, string title, string description, decimal price, string active)
+        public void UpdateProduct(string image, string title, string description, decimal price, string active)
         {
             Image = image;
             Title = title;

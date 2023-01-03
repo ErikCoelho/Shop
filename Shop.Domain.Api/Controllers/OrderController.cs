@@ -26,7 +26,8 @@ namespace Shop.Domain.Api.Controllers
             [FromBody] CreateOrderCommand command,
             [FromServices] OrderHandler handler)
         {
-            return (GenericCommandResult)handler.Handle(command);
+            var customer = User.Claims.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
+            return (GenericCommandResult)handler.HandleOrder(command, customer);
         }
     }
 }

@@ -17,12 +17,14 @@ namespace Shop.Domain.Tests.Repositories
 
         public IEnumerable<Product> Get(IEnumerable<Guid> ids)
         {
-            IList<Product> products = new List<Product>();
-            products.Add(new Product(null, "Produto 1", "Celular", 10, "true"));
-            products.Add(new Product(null, "Produto 2", "Celular", 10, "true"));
-            products.Add(new Product(null, "Produto 3", "Celular", 10, "true"));
-            products.Add(new Product(null, "Produto 4", "Notebook", 10, "false"));
-            products.Add(new Product(null, "Produto 5", "Notebook", 10, "false"));
+            IList<Product> products = new List<Product>
+            {
+                new Product(null, "Produto 1", "Celular", 10, "true"),
+                new Product(null, "Produto 2", "Celular", 10, "true"),
+                new Product(null, "Produto 3", "Celular", 10, "true"),
+                new Product(null, "Produto 4", "Notebook", 10, "false"),
+                new Product(null, "Produto 5", "Notebook", 10, "false")
+            };
 
             return products;
         }

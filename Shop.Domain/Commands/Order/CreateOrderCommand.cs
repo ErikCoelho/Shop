@@ -12,22 +12,19 @@ namespace Shop.Domain.Commands.Order
             Items = new List<CreateOrderItemCommand>();
         }
 
-        public CreateOrderCommand(string customer, string zipCode, IList<CreateOrderItemCommand> items)
+        public CreateOrderCommand(string? zipCode, IList<CreateOrderItemCommand> items)
         {
-            Customer = customer;
             ZipCode = zipCode;
             Items = items;
         }
 
-        public string Customer { get; set; }
-        public string ZipCode { get; set; }
+        public string ZipCode { get; set; } = "12345678";
         public IList<CreateOrderItemCommand> Items { get; set; }
 
         public void Validate()
         {
             AddNotifications(new Contract()
                 .Requires()
-                .HasLen(Customer, 11, "Customer", "Documento inválido")
                 .IsGreaterThan(Items.Count, 0, "Items", "Nenhum item do pedido foi encontrado")
                 );
         }
