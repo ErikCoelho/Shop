@@ -14,8 +14,8 @@ namespace Shop.Domain.Tests.Commands
         public void Dado_um_comand_invalido_o_pedido_nao_deve_ser_gerado()
         {
             _command.ZipCode = "12345678";
-            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 0));
-            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 0));
+            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
+            _command.Items.Add(new CreateOrderItemCommand(Guid.NewGuid(), 1));
             _command.Validate();
 
             Assert.AreEqual(_command.Valid, false);
