@@ -6,7 +6,7 @@ namespace Shop.Domain.Infra.Contexts
 {
     public class DataContext : DbContext
     {
-        public DataContext()
+        public DataContext() : base()
         {
         }
         public DataContext(DbContextOptions<DataContext> options)
