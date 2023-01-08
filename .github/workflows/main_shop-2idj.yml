@@ -40,7 +40,7 @@ jobs:
         run: dotnet tool install --global dotnet-ef
 
       - name: dotnet database update
-        run: dotnet ef database update -- --environment Production
+        run: dotnet ef database update --project Shop.Domain.Infra -- --environment Production
 
 
       - name: Upload artifact for deployment job
