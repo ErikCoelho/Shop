@@ -29,18 +29,19 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+      
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Install EF Tools
         run: dotnet tool install --global dotnet-ef
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
       - name: dotnet bundle migration
         run: dotnet ef migrations bundle -p Shop.Domain.Infra/Shop.Domain.Infra.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
