@@ -39,8 +39,8 @@ jobs:
       - name: Install EF Tools
         run: dotnet tool install --global dotnet-ef
 
-      - name: dotnet bundle migration
-        run: dotnet ef migrations bundle -p Shop.Domain.Infra/Shop.Domain.Infra.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate
+      - name: dotnet database update
+        run: dotnet ef database update -- --environment Production
 
 
       - name: Upload artifact for deployment job
