@@ -12,54 +12,57 @@ namespace Shop.Domain.Api.Controllers
     public class ProductController : ControllerBase
     {
         [HttpGet("v1/products")]
-        public IEnumerable<Product> GetAll(
-            [FromServices]IProductRepository repository)
+        public async Task<IEnumerable<Product>> GetAllAsync(
+            [FromServices] IProductRepository repository)
         {
-            return repository.GetActiveProducts();
+            return await repository.GetActiveProductsAsync();
         }
 
         [HttpGet("v1/products/inactive")]
         [Authorize(Roles = "admin")]
-        public IEnumerable<Product> GetAllAdmin(
+        public async Task<IEnumerable<Product>> GetAllAdminAsync(
             [FromServices] IProductRepository repository)
         {
-            return repository.GetInactiveProducts();
+            return await repository.GetInactiveProductsAsync();
         }
 
         [HttpGet("v1/products/{id}")]
-        public Product GetById(
+        public async Task<Product> GetByIdAsync(
             [FromRoute] Guid id,
             [FromServices] IProductRepository repository)
         {
-            return repository.GetById(id);
+            return await repository.GetByIdAsync(id);
         }
 
         [HttpPost("v1/products")]
         [Authorize(Roles = "admin")]
-        public GenericCommandResult Create(
+        public async Task<GenericCommandResult> CreateAsync(
             [FromBody] EditProductCommand command,
             [FromServices] ProductHandler handler)
         {
-            return (GenericCommandResult)handler.Handle(command);
+            var result = await handler.HandleAsync(command);
+            return (GenericCommandResult)result;
         }
 
         [HttpPut("v1/products/{id:Guid}")]
         [Authorize(Roles = "admin")]
-        public GenericCommandResult Edit(
+        public async Task<GenericCommandResult> EditAsync(
             [FromRoute] Guid id,
             [FromBody] EditProductCommand command,
             [FromServices] ProductHandler handler)
         {
-            return (GenericCommandResult)handler.HandleEdit(command, id);
+            var result = await handler.HandleEditAsync(command, id);
+            return (GenericCommandResult)result;
         }
 
         [HttpDelete("v1/products/{id:Guid}")]
         [Authorize(Roles = "admin")]
-        public GenericCommandResult Delete(
+        public async Task<GenericCommandResult> DeleteAsync(
             [FromRoute] Guid id,
             [FromServices] ProductHandler handler)
         {
-            return (GenericCommandResult)handler.HandleDelete(id);
+            var result = await handler.HandleDeleteAsync(id);
+            return (GenericCommandResult)result;
         }
     }
 }

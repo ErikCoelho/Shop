@@ -16,14 +16,14 @@ namespace Shop.Domain.Infra.Caching
             };
         }
 
-        public string Get(string key)
+        public async Task<string> GetAsync(string key)
         {
-            return _cache.GetString(key);
+            return await _cache.GetStringAsync(key);
         }
 
-        public void Set(string key, string value)
+        public async Task SetAsync(string key, string value)
         {
-            _cache.SetString(key, value, _options);
+            await _cache.SetStringAsync(key, value, _options);
         }
     }
 }

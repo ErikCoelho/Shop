@@ -4,19 +4,19 @@ namespace Shop.Domain.Repositories
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> Get(IEnumerable<Guid> ids);
+        Task<IEnumerable<Product>> GetAsync(IEnumerable<Guid> ids);
 
-        void Create(Product product);
+        Task CreateAsync(Product product);
 
-        void Update(Product product);
+        Task UpdateAsync(Product product);
 
-        void Delete(Product product);
+        Task DeleteAsync(Product product);
 
-        Product GetById(Guid id);
+        Task<Product> GetByIdAsync(Guid id);
 
-        IEnumerable<Product> GetActiveProducts();
+        Task<IEnumerable<Product>> GetActiveProductsAsync();
 
-        IEnumerable<Product> GetInactiveProducts();
+        Task<IEnumerable<Product>> GetInactiveProductsAsync();
 
     }
 }

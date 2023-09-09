@@ -19,9 +19,9 @@ namespace Shop.Domain.Infra.Repositories
             _cache = cache;
         }
 
-        public Product GetById(Guid id)
+        public async Task<Product> GetByIdAsync(Guid id)
         {
-            var productCache =  _cache.Get(id.ToString());
+            var productCache = await _cache.GetAsync(id.ToString());
             Product product;
 
             if (!string.IsNullOrWhiteSpace(productCache))
@@ -30,48 +30,45 @@ namespace Shop.Domain.Infra.Repositories
                 return product;
             }
 
-            product = _context.Products.FirstOrDefault(x => x.Id == id);
-            _cache.Set(id.ToString(), JsonConvert.SerializeObject(product));
+            product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            await _cache.SetAsync(id.ToString(), JsonConvert.SerializeObject(product));
 
             return product;
         }
 
-        public IEnumerable<Product> GetActiveProducts()
+        public async Task<IEnumerable<Product>> GetActiveProductsAsync()
         {
-            return _context.Products.AsNoTracking().Where(ProductQueries.GetActiveProducts());
+            return await _context.Products.AsNoTracking().Where(ProductQueries.GetActiveProducts()).ToListAsync();
         }
 
-        public IEnumerable<Product> GetInactiveProducts()
+        public async Task<IEnumerable<Product>> GetInactiveProductsAsync()
         {
-            return _context.Products.AsNoTracking().Where(ProductQueries.GetInactiveProducts());
+            return await _context.Products.AsNoTracking().Where(ProductQueries.GetInactiveProducts()).ToListAsync();
         }
 
-        public IEnumerable<Product> Get(IEnumerable<Guid> ids)
+        public async Task<IEnumerable<Product>> GetAsync(IEnumerable<Guid> ids)
         {
-            var products = new List<Product>();
-            foreach(var id in ids)
-            {
-                products.Add(GetById(id));
-            }
+            var tasks = ids.Select(id => GetByIdAsync(id));
+            var products = await Task.WhenAll(tasks);
             return products;
         }
 
-        public void Create(Product product)
+        public async Task CreateAsync(Product product)
         {
             _context.Add(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Product product)
+        public async Task UpdateAsync(Product product)
         {
             _context.Products.Update(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Product product)
+        public async Task DeleteAsync(Product product)
         {
-            _context.Products.Remove(product); 
-            _context.SaveChanges();
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
         }
 
     }

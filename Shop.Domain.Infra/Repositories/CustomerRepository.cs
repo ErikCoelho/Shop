@@ -14,20 +14,20 @@ namespace Shop.Domain.Infra.Repositories
             _context = context;
         }
 
-        public void Create(Customer customer)
+        public async Task CreateAsync(Customer customer)
         {
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            await _context.Customers.AddAsync(customer);
+            await _context.SaveChangesAsync();
         }
 
-        public Customer Get(string doc)
+        public async Task<Customer> GetAsync(string document)
         {
-            return _context.Customers.AsNoTracking().FirstOrDefault(x => x.Document.Number == doc)!;
+            return await _context.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.Document.Number == document)!;
         }
 
-        public Customer GetEmail(string email)
+        public async Task<Customer> GetEmailAsync(string email)
         {
-            return _context.Customers.AsNoTracking().Include(x => x.Roles).FirstOrDefault(x => x.Email.Address == email)!;
+            return await _context.Customers.AsNoTracking().Include(x => x.Roles).FirstOrDefaultAsync(x => x.Email.Address == email)!;
         }
     }
 }

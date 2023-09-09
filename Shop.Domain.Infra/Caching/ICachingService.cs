@@ -2,7 +2,7 @@
 {
     public interface ICachingService
     {
-        void Set(string key, string value);
-        string Get(string key);
+        Task SetAsync(string key, string value);
+        Task<string> GetAsync(string key);
     }
 }

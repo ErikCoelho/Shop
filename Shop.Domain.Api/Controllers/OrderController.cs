@@ -13,21 +13,22 @@ namespace Shop.Domain.Api.Controllers
     {
         [HttpGet("v1/orders")]
         [Authorize]
-        public IEnumerable<Order> GetAll(
+        public async Task<IEnumerable<Order>> GetAllAsync(
             [FromServices] IOrderRepository repository)
         {
             var customer = User.Claims.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
-            return repository.GetAll(customer);
+            return await repository.GetAllAsync(customer);
         }
 
         [HttpPost("v1/orders")]
         [Authorize]
-        public GenericCommandResult Create(
+        public async Task<GenericCommandResult> CreateAsync(
             [FromBody] CreateOrderCommand command,
             [FromServices] OrderHandler handler)
         {
             var customer = User.Claims.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
-            return (GenericCommandResult)handler.HandleOrder(command, customer);
+            var result = await handler.HandleOrder(command, customer);
+            return (GenericCommandResult)result;
         }
     }
 }

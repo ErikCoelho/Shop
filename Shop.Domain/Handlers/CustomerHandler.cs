@@ -22,35 +22,35 @@ namespace Shop.Domain.Handlers
             _tokenService = tokenService;
         }
 
-        public ICommandResult Handle(CreateCustomerCommand command)
+        public async Task<ICommandResult> HandleAsync(CreateCustomerCommand command)
         {
             command.Validate();
             if (command.Invalid)
                 return new GenericCommandResult(false, "Usuário inválido", Notifications);
             
             var name = new Name(command.FirstName, command.LastName);
-            var doc = new Document(command.Document);
+            var document = new Document(command.Document);
             var email = new Email(command.Email);
             var password = PasswordHasher.Hash(command.PasswordHash);
-            var customer = new Customer(name, doc,email, password);
+            var customer = new Customer(name, document,email, password);
 
             AddNotifications(customer);
 
             if (Invalid)
                 return new GenericCommandResult(false, "Falha ao criar usuário", Notifications);
             
-            _repository.Create(customer);
+            await _repository.CreateAsync(customer);
             return new GenericCommandResult(true, "Usuário criado", customer);
 
         }
         
-        public ICommandResult HandleLogin(LoginCustomerCommand command)
+        public async Task<ICommandResult> HandleLoginAsync(LoginCustomerCommand command)
         {
             command.Validate();
             if (command.Invalid)
                 return new GenericCommandResult(false, "Usuário ou senha inválidos", Notifications);
 
-            var customer = _repository.GetEmail(command.Email);
+            var customer = await _repository.GetEmailAsync(command.Email);
             if (customer == null)
             {
                 return new GenericCommandResult(false, "Usuário ou senha inválidos", Notifications);
