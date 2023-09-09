@@ -25,8 +25,7 @@
             Title = title;
             Description = description;
             Price = price;
-            Active = active == "true" ? true : false;
+            Active = active == "active" ? true : false;
         }
-
     }
 }

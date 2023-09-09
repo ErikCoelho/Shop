@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Shop.Domain.Api;
 using Shop.Domain.Handlers;
+using Shop.Domain.Infra.Caching;
 using Shop.Domain.Infra.Contexts;
 using Shop.Domain.Infra.Repositories;
 using Shop.Domain.Repositories;
@@ -21,6 +22,12 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connectionString));
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "instance";
+});
+
 ConfigureServices(builder);
 
 
@@ -33,8 +40,11 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseCors("DevPolicy");
 app.UseHttpsRedirection();
@@ -70,6 +80,8 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddTransient<IProductRepository, ProductRepository>();
     builder.Services.AddTransient<IOrderRepository, OrderRepository>();
     builder.Services.AddTransient<IDeliveryFeeRepository, DeliveryFeeRepository>();
+    builder.Services.AddTransient<ICachingService, CachingService>();
+
 
     builder.Services.AddTransient<OrderHandler, OrderHandler>();
     builder.Services.AddTransient<ProductHandler, ProductHandler>();

@@ -18,9 +18,9 @@ namespace Shop.Domain.Handlers
         private readonly IOrderRepository _orderRepository;
 
         public OrderHandler(
-            ICustomerRepository customerRepository, 
-            IDeliveryFeeRepository deliveryFeeRepository, 
-            IProductRepository productRepository, 
+            ICustomerRepository customerRepository,
+            IDeliveryFeeRepository deliveryFeeRepository,
+            IProductRepository productRepository,
             IOrderRepository orderRepository)
         {
             _customerRepository = customerRepository;
@@ -36,19 +36,19 @@ namespace Shop.Domain.Handlers
                 return new GenericCommandResult(false, "Pedido inválido", Notifications);
 
             var customerData = _customerRepository.Get(customer);
-            if(customer == null)
+            if (customer == null)
                 return new GenericCommandResult(false, "Usuário inválido", Notifications);
 
             var deliveryFee = _deliveryFeeRepository.Get(command.ZipCode);
             var products = _productRepository.Get(ExtractGuids.Extract(command.Items)).ToList();
             var order = new Order(customerData.Document.Number, deliveryFee);
-            
-            foreach(var item in command.Items)
+
+            foreach (var item in command.Items)
             {
                 var product = products.Where(x => x.Id == item.Product).FirstOrDefault()!;
                 order.AddItem(product, item.Quantity);
             }
-                order.Total();
+            order.Total();
 
             AddNotifications(order.Notifications);
 

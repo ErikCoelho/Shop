@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Shop.Domain.Entities;
+using Shop.Domain.Infra.Caching;
 using Shop.Domain.Infra.Contexts;
 using Shop.Domain.Queries;
 using Shop.Domain.Repositories;
@@ -9,15 +11,29 @@ namespace Shop.Domain.Infra.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly DataContext _context;
+        private readonly ICachingService _cache;
 
-        public ProductRepository(DataContext context)
+        public ProductRepository(ICachingService cache, DataContext context)
         {
             _context = context;
+            _cache = cache;
         }
 
         public Product GetById(Guid id)
         {
-            return _context.Products.FirstOrDefault(x => x.Id == id)!;
+            var productCache =  _cache.Get(id.ToString());
+            Product product;
+
+            if (!string.IsNullOrWhiteSpace(productCache))
+            {
+                product = JsonConvert.DeserializeObject<Product>(productCache);
+                return product;
+            }
+
+            product = _context.Products.FirstOrDefault(x => x.Id == id);
+            _cache.Set(id.ToString(), JsonConvert.SerializeObject(product));
+
+            return product;
         }
 
         public IEnumerable<Product> GetActiveProducts()

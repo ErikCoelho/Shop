@@ -18,7 +18,7 @@ namespace Shop.Domain.Commands.Order
             Items = items;
         }
 
-        public string ZipCode { get; set; } = "12345678";
+        public string? ZipCode { get; set; } = "12345678";
         public IList<CreateOrderItemCommand> Items { get; set; }
 
         public void Validate()
