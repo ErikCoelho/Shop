@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Domain.Infra.Contexts;
 
@@ -11,9 +12,11 @@ using Shop.Domain.Infra.Contexts;
 namespace Shop.Domain.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230910165744_UpdateProduct")]
+    partial class UpdateProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,7 +178,7 @@ namespace Shop.Domain.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("UserRole", b =>
@@ -190,12 +193,12 @@ namespace Shop.Domain.Infra.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRole", (string)null);
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("Shop.Domain.Entities.Customer", b =>
                 {
-                    b.OwnsOne("Shop.Domain.Entities.Customer.Document#Shop.Domain.ValueObjects.Document", "Document", b1 =>
+                    b.OwnsOne("Shop.Domain.ValueObjects.Document", "Document", b1 =>
                         {
                             b1.Property<Guid>("CustomerId")
                                 .HasColumnType("uniqueidentifier");
@@ -207,13 +210,13 @@ namespace Shop.Domain.Infra.Migrations
 
                             b1.HasKey("CustomerId");
 
-                            b1.ToTable("Customer", (string)null);
+                            b1.ToTable("Customer");
 
                             b1.WithOwner()
                                 .HasForeignKey("CustomerId");
                         });
 
-                    b.OwnsOne("Shop.Domain.Entities.Customer.Email#Shop.Domain.ValueObjects.Email", "Email", b1 =>
+                    b.OwnsOne("Shop.Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("CustomerId")
                                 .HasColumnType("uniqueidentifier");
@@ -225,13 +228,13 @@ namespace Shop.Domain.Infra.Migrations
 
                             b1.HasKey("CustomerId");
 
-                            b1.ToTable("Customer", (string)null);
+                            b1.ToTable("Customer");
 
                             b1.WithOwner()
                                 .HasForeignKey("CustomerId");
                         });
 
-                    b.OwnsOne("Shop.Domain.Entities.Customer.Name#Shop.Domain.ValueObjects.Name", "Name", b1 =>
+                    b.OwnsOne("Shop.Domain.ValueObjects.Name", "Name", b1 =>
                         {
                             b1.Property<Guid>("CustomerId")
                                 .HasColumnType("uniqueidentifier");
@@ -248,7 +251,7 @@ namespace Shop.Domain.Infra.Migrations
 
                             b1.HasKey("CustomerId");
 
-                            b1.ToTable("Customer", (string)null);
+                            b1.ToTable("Customer");
 
                             b1.WithOwner()
                                 .HasForeignKey("CustomerId");

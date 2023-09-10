@@ -13,9 +13,11 @@ namespace Shop.Domain.Api.Controllers
     {
         [HttpGet("v1/products")]
         public async Task<IEnumerable<Product>> GetAllAsync(
-            [FromServices] IProductRepository repository)
+            [FromServices] IProductRepository repository,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20)
         {
-            return await repository.GetActiveProductsAsync();
+            return await repository.GetActiveProductsAsync(page, pageSize);
         }
 
         [HttpGet("v1/products/inactive")]
@@ -34,8 +36,16 @@ namespace Shop.Domain.Api.Controllers
             return await repository.GetByIdAsync(id);
         }
 
+        [HttpGet("v1/products/search/{term}")]
+        public async Task<IEnumerable<Product>> SearchProductsAsync(
+            [FromRoute] string term,
+            [FromServices] IProductRepository repository)
+        {
+            return await repository.SearchProductsAsync(term);
+        }
+
         [HttpPost("v1/products")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<GenericCommandResult> CreateAsync(
             [FromBody] EditProductCommand command,
             [FromServices] ProductHandler handler)

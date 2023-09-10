@@ -14,7 +14,9 @@ namespace Shop.Domain.Repositories
 
         Task<Product> GetByIdAsync(Guid id);
 
-        Task<IEnumerable<Product>> GetActiveProductsAsync();
+        Task<IEnumerable<Product>> SearchProductsAsync(string term);
+
+        Task<IEnumerable<Product>> GetActiveProductsAsync(int page, int pageSize);
 
         Task<IEnumerable<Product>> GetInactiveProductsAsync();
 

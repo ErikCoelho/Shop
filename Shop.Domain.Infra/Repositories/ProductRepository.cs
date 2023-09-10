@@ -27,18 +27,41 @@ namespace Shop.Domain.Infra.Repositories
             if (!string.IsNullOrWhiteSpace(productCache))
             {
                 product = JsonConvert.DeserializeObject<Product>(productCache);
-                return product;
             }
-
-            product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
-            await _cache.SetAsync(id.ToString(), JsonConvert.SerializeObject(product));
+            else
+            {
+                product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+                await _cache.SetAsync(id.ToString(), JsonConvert.SerializeObject(product));
+            }
 
             return product;
         }
 
-        public async Task<IEnumerable<Product>> GetActiveProductsAsync()
+        public async Task<IEnumerable<Product>> GetActiveProductsAsync(int page, int pageSize)
         {
-            return await _context.Products.AsNoTracking().Where(ProductQueries.GetActiveProducts()).ToListAsync();
+            string cacheKey = $"ActiveProductsPage_{page}_{pageSize}";
+
+            var productCache = await _cache.GetAsync(cacheKey);
+            IEnumerable<Product> activeProducts;
+
+            if (!string.IsNullOrWhiteSpace(productCache))
+            {
+                activeProducts = JsonConvert.DeserializeObject<IEnumerable<Product>>(productCache);
+            }
+            else
+            {
+                activeProducts = await _context.Products
+                    .AsNoTracking()
+                    .Where(ProductQueries.GetActiveProducts())
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .OrderByDescending(x => x.LastUpdateDate)
+                    .ToListAsync();
+
+                await _cache.SetAsync(cacheKey, JsonConvert.SerializeObject(activeProducts));
+            }
+
+            return activeProducts;
         }
 
         public async Task<IEnumerable<Product>> GetInactiveProductsAsync()
@@ -51,6 +74,16 @@ namespace Shop.Domain.Infra.Repositories
             var tasks = ids.Select(id => GetByIdAsync(id));
             var products = await Task.WhenAll(tasks);
             return products;
+        }
+
+        public async Task<IEnumerable<Product>> SearchProductsAsync(string term)
+        {
+            var searchResults = await _context.Products
+                .AsNoTracking()
+                .Where(p => p.Title.Contains(term) || p.Description.Contains(term))
+                .ToListAsync();
+
+            return searchResults;
         }
 
         public async Task CreateAsync(Product product)
@@ -70,6 +103,5 @@ namespace Shop.Domain.Infra.Repositories
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
-
     }
 }

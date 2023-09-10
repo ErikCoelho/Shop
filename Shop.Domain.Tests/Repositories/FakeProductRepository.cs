@@ -27,12 +27,6 @@ namespace Shop.Domain.Tests.Repositories
             return  products;
         }
 
-        public Task<IEnumerable<Product>> GetActiveProductsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-
         public Task<Product> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
@@ -44,6 +38,11 @@ namespace Shop.Domain.Tests.Repositories
         }
 
         public Task UpdateAsync(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Product>> GetActiveProductsAsync(int page, int pageSize)
         {
             throw new NotImplementedException();
         }
