@@ -10,8 +10,14 @@ namespace Shop.Domain.Tests.Repositories
             throw new NotImplementedException();
         }
 
-        public void Save(Order order)
+        public Task<IEnumerable<Order>> GetAllAsync(string customer)
         {
+            throw new NotImplementedException();
+        }
+
+        public Task SaveAsync(Order order)
+        {
+            throw new NotImplementedException();
         }
     }
 }
