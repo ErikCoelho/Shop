@@ -5,46 +5,44 @@ namespace Shop.Domain.Tests.Repositories
 {
     public class FakeProductRepository : IProductRepository
     {
-        public void Create(Product product)
+        public Task CreateAsync(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Product product)
+        public Task DeleteAsync(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> Get(IEnumerable<Guid> ids)
+        public async Task<IEnumerable<Product>> GetAsync(IEnumerable<Guid> ids)
         {
             IList<Product> products = new List<Product>
             {
-                new Product(null, "Produto 1", "Celular", 10, "true"),
-                new Product(null, "Produto 2", "Celular", 10, "true"),
-                new Product(null, "Produto 3", "Celular", 10, "true"),
-                new Product(null, "Produto 4", "Notebook", 10, "false"),
-                new Product(null, "Produto 5", "Notebook", 10, "false")
+                new Product(String.Empty, "Produto 1", "Celular", 10, "true"),
+                new Product(String.Empty, "Produto 2", "Celular", 10, "true"),
+                new Product(String.Empty, "Produto 3", "Celular", 10, "true")
             };
 
-            return products;
+            return  products;
         }
 
-        public IEnumerable<Product> GetActiveProducts()
+        public Task<Product> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetById(Guid id)
+        public Task<IEnumerable<Product>> GetInactiveProductsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetInactiveProducts()
+        public Task UpdateAsync(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Product product)
+        public Task<IEnumerable<Product>> GetActiveProductsAsync(int page, int pageSize)
         {
             throw new NotImplementedException();
         }

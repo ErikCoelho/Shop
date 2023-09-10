@@ -14,27 +14,29 @@ namespace Shop.Domain.Api.Controllers
 
         [HttpGet("v1/account/info")]
         [Authorize]
-        public Customer GetInfoCustomer(
+        public async Task<Customer> GetInfoCustomerAsync(
             [FromServices] ICustomerRepository repository)
         {
             var customer = User.Claims.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
-            return repository.Get(customer);
+            return await repository.GetAsync(customer);
         }
 
         [HttpPost("v1/account/create")]
-        public GenericCommandResult Create(
+        public async Task<GenericCommandResult> CreateAsync(
             [FromBody] CreateCustomerCommand command,
             [FromServices] CustomerHandler handler)
         {
-            return (GenericCommandResult)handler.Handle(command);
+            var result = await handler.HandleAsync(command);
+            return (GenericCommandResult)result;
         }
 
         [HttpPost("v1/account/login")]
-        public GenericCommandResult Login(
+        public async Task<GenericCommandResult> LoginAsync(
             [FromBody] LoginCustomerCommand command,
             [FromServices] CustomerHandler handler)
         {
-            return (GenericCommandResult)handler.HandleLogin(command);
+            var result = await handler.HandleLoginAsync(command);
+            return (GenericCommandResult)result;
         }
     }
 }

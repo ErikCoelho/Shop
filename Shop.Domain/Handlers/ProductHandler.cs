@@ -17,7 +17,7 @@ namespace Shop.Domain.Handlers
             _productRepository = repository;
         }
 
-        public ICommandResult Handle(EditProductCommand command)
+        public async Task<ICommandResult> HandleAsync(EditProductCommand command)
         {
             command.Validate();
             if(command.Invalid)
@@ -30,17 +30,17 @@ namespace Shop.Domain.Handlers
             if (Invalid)
                 return new GenericCommandResult(false, "Falha ao criar o produto", Notifications);
 
-            _productRepository.Create(product);
+            await _productRepository.CreateAsync(product);
             return new GenericCommandResult(true, $"Produto {product.Id} criado com sucesso", product);
         }
 
-        public ICommandResult HandleEdit(EditProductCommand command, Guid id)
+        public async Task<ICommandResult> HandleEditAsync(EditProductCommand command, Guid id)
         {
             command.Validate();
             if (command.Invalid)
                 return new GenericCommandResult(false, "Produto inválido", Notifications);
 
-            var product =  _productRepository.GetById(id);
+            var product =  await _productRepository.GetByIdAsync(id);
             if(product == null)
                 return new GenericCommandResult(false, "O produto não existe", Notifications);
 
@@ -51,17 +51,17 @@ namespace Shop.Domain.Handlers
             if (Invalid)
                 return new GenericCommandResult(false, "Falha ao atualizar o produto", Notifications);
 
-            _productRepository.Update(product);
+            await _productRepository.UpdateAsync(product);
             return new GenericCommandResult(true, $"Produto {product.Id} atualizado com sucesso", product);
         }
 
-        public ICommandResult HandleDelete(Guid id)
+        public async Task<ICommandResult> HandleDeleteAsync(Guid id)
         {
-            var product = _productRepository.GetById(id);
+            var product = await _productRepository.GetByIdAsync(id);
             if (product == null)
                 return new GenericCommandResult(false, "O produto não existe", Notifications);
 
-            _productRepository.Delete(product);
+            await _productRepository.DeleteAsync(product);
             return new GenericCommandResult(true, $"Produto {product.Id} deletado com sucesso", product);
         }
     }

@@ -36,6 +36,12 @@ namespace Shop.Domain.Infra.Contexts.Mappings
                 .HasColumnName("Active")
                 .HasColumnType("BIT");
 
+            builder.Property(x => x.LastUpdateDate)
+                .IsRequired()
+                .HasColumnName("LastUpdateDate")
+                .HasColumnType("DATETIME")
+                .HasDefaultValueSql("GETDATE()");
+
             builder.Ignore(x => x.Notifications);
 
             builder.Property(x => x.Image)

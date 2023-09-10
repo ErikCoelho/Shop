@@ -6,7 +6,17 @@ namespace Shop.Domain.Tests.Repositories
 {
     public class FakeCustomerRepository : ICustomerRepository
     {
-        public Customer Get(string document)
+        public Task CreateAsync(Customer customer)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task<Customer> GetEmailAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Customer> GetAsync(string document)
         {
             var name = new Name("Erik", "Coelho");
             var doc = new Document("12345678911");
@@ -17,17 +27,5 @@ namespace Shop.Domain.Tests.Repositories
 
             return null;
         }
-
-        public Customer GetEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Create(Customer customer)
-        {
-            
-        }
-
-
     }
 }

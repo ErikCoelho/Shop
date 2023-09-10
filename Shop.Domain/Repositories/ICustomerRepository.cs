@@ -4,9 +4,8 @@ namespace Shop.Domain.Repositories
 {
     public interface ICustomerRepository
     {
-        void Create(Customer customer);
-        Customer Get(string doc);
-
-        Customer GetEmail(string email);
+        Task CreateAsync(Customer customer);
+        Task<Customer> GetAsync(string document);
+        Task<Customer> GetEmailAsync(string email);
     }
 }

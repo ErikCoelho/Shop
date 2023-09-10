@@ -20,15 +20,15 @@ namespace Shop.Domain.Infra.Repositories
         //    return _context.Orders.AsNoTracking().Where(OrderQueries.GetAll(customer));
         //}
 
-        public IEnumerable<Order> GetAll(string customer)
+        public async Task<IEnumerable<Order>> GetAllAsync(string customer)
         {
-            return _context.Orders.AsNoTracking().Where(x => x.CustomerDoc == customer).Include(x =>x.Items).ToList();
+            return await _context.Orders.AsNoTracking().Where(x => x.CustomerDoc == customer).Include(x =>x.Items).OrderByDescending(x => x.Date).ToListAsync();
         }
 
-        public void Save(Order order)
+        public async Task SaveAsync(Order order)
         {
-            _context.Orders.Add(order);
-            _context.SaveChanges();
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
         }
     }
 }

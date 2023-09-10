@@ -4,8 +4,8 @@ namespace Shop.Domain.Repositories
 {
     public interface IOrderRepository
     {
-        void Save(Order order);
+        Task SaveAsync(Order order);
 
-        IEnumerable<Order> GetAll(string customer);
+        Task<IEnumerable<Order>> GetAllAsync(string customer);
     }
 }

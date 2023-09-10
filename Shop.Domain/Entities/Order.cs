@@ -1,5 +1,6 @@
 ﻿using Flunt.Validations;
 using Shop.Domain.Enums;
+using Shop.Domain.ValueObjects;
 
 namespace Shop.Domain.Entities
 {
@@ -33,6 +34,11 @@ namespace Shop.Domain.Entities
 
         public void AddItem(Product product, int quantity)
         {
+            if (product == null)
+            {
+                AddNotification("Product", "Produto inválido");
+                return;
+            }
             var item = new OrderItem(product.Id, quantity, product.Price);
             if (item.Valid)
                 Items.Add(item);
